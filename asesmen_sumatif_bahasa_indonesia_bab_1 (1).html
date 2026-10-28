@@ -16,7 +16,6 @@
         h1, h2, h3, .font-heading {
             font-family: 'Outfit', sans-serif;
         }
-        /* Custom scrollbar */
         ::-webkit-scrollbar {
             width: 8px;
         }
@@ -58,4 +57,851 @@
             <div class="flex items-center space-x-3">
                 <div class="bg-emerald-800 p-2 rounded-lg">
                     <svg class="w-6 h-6 text-emerald-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.24
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path>
+                    </svg>
+                </div>
+                <div>
+                    <h1 class="text-lg font-bold leading-tight">Asesmen Sumatif Digital</h1>
+                    <p class="text-xs text-emerald-200">Bahasa Indonesia Kelas XI (Fase F) - Bab 1</p>
+                </div>
+            </div>
+            <div id="header-student-info" class="hidden text-right text-xs bg-emerald-800/60 px-3 py-1.5 rounded-lg border border-emerald-600">
+                <span id="display-header-nama" class="font-semibold block"></span>
+                <span id="display-header-kelas" class="text-emerald-200 block"></span>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="max-w-5xl mx-auto px-4 py-6 flex-grow w-full">
+
+        <!-- Progress Bar (Fixed Below Header) -->
+        <div id="progress-container" class="hidden mb-6 bg-white p-4 rounded-xl shadow-sm border border-slate-200 sticky top-16 z-40 no-print">
+            <div class="flex justify-between items-center text-xs font-semibold text-slate-600 mb-2">
+                <span>Kemajuan Pengerjaan</span>
+                <span id="progress-text">0 dari 20 Soal Terjawab (0%)</span>
+            </div>
+            <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+                <div id="progress-bar" class="bg-emerald-600 h-2.5 rounded-full transition-all duration-300" style="width: 0%"></div>
+            </div>
+        </div>
+
+        <!-- VIEW 1: IDENTITY FORM -->
+        <section id="identity-section" class="max-w-xl mx-auto">
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 overflow-hidden">
+                <div class="bg-gradient-to-r from-emerald-600 to-teal-700 p-6 text-white">
+                    <span class="inline-block px-3 py-1 bg-emerald-800/60 rounded-full text-xs font-semibold text-emerald-100 mb-2">Ulangan Harian Bab 1</span>
+                    <h2 class="text-2xl font-bold">Mengenalkan dan Mempromosikan Produk Pangan Lokal Indonesia</h2>
+                    <p class="text-sm text-emerald-100 mt-1">Silakan isi identitas Anda dengan lengkap sebelum memulai asesmen.</p>
+                </div>
+
+                <form id="identity-form" onsubmit="startAssessment(event)" class="p-6 space-y-5">
+                    <div>
+                        <label for="input-nama" class="block text-sm font-medium text-slate-700 mb-1">Nama Lengkap <span class="text-red-500">*</span></label>
+                        <input type="text" id="input-nama" required placeholder="Contoh: Ahmad Dahlan" class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition">
+                    </div>
+
+                    <div>
+                        <label for="input-kelas" class="block text-sm font-medium text-slate-700 mb-1">Kelas <span class="text-red-500">*</span></label>
+                        <input type="text" id="input-kelas" required placeholder="Contoh: XI IPA 1 / XI Merdeka 2" class="w-full px-4 py-2.5 rounded-lg border border-slate-300 focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition">
+                    </div>
+
+                    <div class="bg-amber-50 border border-amber-200 rounded-xl p-4 text-xs text-amber-800 space-y-1">
+                        <p class="font-bold flex items-center">
+                            <svg class="w-4 h-4 mr-1 text-amber-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            Petunjuk Pengerjaan:
+                        </p>
+                        <ul class="list-disc list-inside space-y-0.5 ml-1">
+                            <li>Soal Pilihan Ganda (PG): Pilih 1 jawaban yang paling tepat.</li>
+                            <li>Soal PG Kompleks (PGK): Pilih semua jawaban yang benar (lebih dari satu).</li>
+                            <li>Soal Benar-Salah: Tentukan status tiap pernyataan dalam tabel.</li>
+                        </ul>
+                    </div>
+
+                    <button type="submit" class="w-full bg-emerald-600 hover:bg-emerald-700 text-white font-semibold py-3 px-6 rounded-xl shadow-md transition duration-200 flex items-center justify-center space-x-2">
+                        <span>Mulai Kerjakan Asesmen</span>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                    </button>
+                </form>
+            </div>
+        </section>
+
+        <!-- VIEW 2: QUESTIONS SECTION -->
+        <section id="questions-section" class="hidden space-y-8">
+            <div id="questions-container" class="space-y-6"></div>
+
+            <!-- Action Floating Toolbar / Bottom Bar -->
+            <div class="bg-white rounded-xl shadow-md border border-slate-200 p-4 sticky bottom-4 flex justify-between items-center no-print">
+                <button type="button" onclick="scrollToTop()" class="px-4 py-2 text-sm text-slate-600 hover:text-slate-900 font-medium border border-slate-300 rounded-lg transition">
+                    ↑ Ke Atas
+                </button>
+                <button type="button" onclick="submitAssessment()" class="px-6 py-2.5 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold rounded-lg shadow-md transition flex items-center space-x-2">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    <span>Kumpulkan Jawaban</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- VIEW 3: RESULT & EVALUATION SECTION -->
+        <section id="result-section" class="hidden space-y-6">
+            <!-- Score Card -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6 md:p-8 text-center relative overflow-hidden">
+                <div class="absolute top-0 left-0 right-0 h-3 bg-gradient-to-r from-emerald-500 to-teal-600"></div>
+                <h2 class="text-2xl font-bold text-slate-800">Hasil Asesmen Sumatif</h2>
+                <p class="text-sm text-slate-500 mt-1">Bahasa Indonesia Bab 1 – Mengenalkan dan Mempromosikan Produk Pangan Lokal</p>
+
+                <!-- Student Info Badge -->
+                <div class="my-4 inline-flex flex-wrap justify-center gap-4 bg-slate-50 border border-slate-200 rounded-xl px-5 py-2.5 text-xs text-slate-700">
+                    <div>Nama: <span id="res-nama" class="font-semibold text-slate-900"></span></div>
+                    <div>Kelas: <span id="res-kelas" class="font-semibold text-slate-900"></span></div>
+                    <div>Waktu Selesai: <span id="res-waktu" class="font-semibold text-slate-900"></span></div>
+                </div>
+
+                <div class="my-6 flex justify-center items-center">
+                    <div class="relative flex items-center justify-center w-40 h-40 rounded-full border-8 border-emerald-100 bg-emerald-50 shadow-inner">
+                        <div class="text-center">
+                            <span id="res-score" class="block text-4xl font-extrabold text-emerald-700">0</span>
+                            <span class="text-xs text-emerald-600 font-medium">Total Skor / 100</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="res-feedback" class="max-w-md mx-auto p-3 rounded-lg text-sm font-medium mb-4"></div>
+
+                <div class="flex justify-center gap-3 no-print">
+                    <button onclick="window.print()" class="px-5 py-2.5 bg-slate-800 hover:bg-slate-900 text-white text-sm font-medium rounded-lg shadow transition flex items-center space-x-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path></svg>
+                        <span>Cetak Hasil / Simpan PDF</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Answer Evaluation List -->
+            <div class="bg-white rounded-2xl shadow-sm border border-slate-200 p-6">
+                <h3 class="text-xl font-bold text-slate-800 mb-4 pb-2 border-b border-slate-100">Evaluasi Pembahasan Jawaban</h3>
+                <div id="evaluation-container" class="space-y-6"></div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t border-slate-200 py-4 mt-8 no-print">
+        <div class="max-w-5xl mx-auto px-4 text-center text-xs text-slate-500">
+            Asesmen Sumatif Bahasa Indonesia Kelas XI SMA (Fase F) • Bab 1
+        </div>
+    </footer>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // --- STIMULUS DATA ---
+        const stimuliMap = {
+            teks1: `
+                <div class="bg-amber-50/70 border-l-4 border-amber-500 p-4 rounded-r-xl my-3 text-xs md:text-sm text-slate-700 leading-relaxed">
+                    <h5 class="font-bold text-amber-900 mb-1">Teks 1 — Sagu, Pangan Pokok yang Layak Kembali ke Meja Makan</h5>
+                    <p class="mb-1.5"><strong>(1)</strong> Sagu seharusnya kembali mendapat tempat penting dalam menu makan masyarakat Indonesia. Selama ini, nasi dianggap satu-satunya makanan pokok, padahal Indonesia memiliki sagu yang telah lama dikonsumsi masyarakat Maluku dan Papua. Menurut saya, ketergantungan pada satu jenis pangan pokok membuat ketahanan pangan kita rentan.</p>
+                    <p class="mb-1.5"><strong>(2)</strong> Pohon sagu dapat tumbuh di lahan rawa dan gambut yang tidak cocok untuk padi. Satu pohon sagu dewasa dapat menghasilkan ratusan kilogram pati basah. Dengan demikian, pemanfaatan sagu tidak bersaing dengan lahan sawah.</p>
+                    <p class="mb-1.5"><strong>(3)</strong> Sagu juga dapat diolah menjadi beragam makanan, seperti papeda, sagu lempeng, dan kue bagea. Keragaman olahan ini menunjukkan bahwa sagu dapat menyesuaikan selera generasi muda jika dikemas dengan menarik.</p>
+                    <p><strong>(4)</strong> Oleh karena itu, pemerintah dan masyarakat perlu bersama-sama mengenalkan kembali sagu sebagai pangan pokok alternatif. Langkah ini akan memperkuat ketahanan pangan sekaligus melestarikan kuliner daerah.</p>
+                </div>
+            `,
+            rumpang: `
+                <div class="bg-amber-50/70 border-l-4 border-amber-500 p-4 rounded-r-xl my-3 text-xs md:text-sm text-slate-700 leading-relaxed">
+                    <h5 class="font-bold text-amber-900 mb-1">Paragraf Rumpang</h5>
+                    <p>Singkong dapat tumbuh di lahan kering dengan perawatan sederhana. <strong>(1) ........</strong>, singkong cocok dikembangkan di daerah yang curah hijannya rendah. Singkong juga mudah diolah menjadi tepung mocaf dan keripik. <strong>(2) ........</strong>, banyak petani masih menjual singkong dalam bentuk mentah dengan harga rendah. <strong>(3) ........</strong>, petani memerlukan pelatihan pengolahan agar nilai jual singkong meningkat.</p>
+                </div>
+            `,
+            teks2: `
+                <div class="bg-amber-50/70 border-l-4 border-amber-500 p-4 rounded-r-xl my-3 text-xs md:text-sm text-slate-700 leading-relaxed">
+                    <h5 class="font-bold text-amber-900 mb-1">Teks 2 — Singkong, Pangan Lokal yang Tidak Boleh Dianggap Murah</h5>
+                    <p class="mb-1.5"><strong>(1)</strong> Singkong sering dianggap makanan rakyat kelas bawah. Saya berpendapat bahwa anggapan ini keliru. Singkong justru memiliki nilai gizi dan nilai ekonomi yang layak dibanggakan.</p>
+                    <p class="mb-1.5"><strong>(2)</strong> Singkong mengandung karbohidrat yang menjadi sumber energi dan dapat tumbuh di lahan kering. Para petani di berbagai daerah menanamnya karena tanaman ini tahan terhadap tanah yang kurang subur. Hal ini membuktikan bahwa singkong dapat menjadi cadangan pangan saat panen padi gagal.</p>
+                    <p class="mb-1.5"><strong>(3)</strong> Singkong yang diolah menjadi tepung mocaf, keripik, atau getuk memiliki harga jual lebih tinggi daripada singkong mentah. Saya yakin pelaku usaha kecil dapat memanfaatkan peluang ini untuk meningkatkan pendapatan.</p>
+                    <p><strong>(4)</strong> Dengan demikian, singkong sepatutnya dipandang sebagai pangan bernilai, bukan makanan murah. Mengolah dan mempromosikannya secara kreatif akan membantu singkong naik kelas.</p>
+                </div>
+            `,
+            teks3: `
+                <div class="bg-amber-50/70 border-l-4 border-amber-500 p-4 rounded-r-xl my-3 text-xs md:text-sm text-slate-700 leading-relaxed">
+                    <h5 class="font-bold text-amber-900 mb-1">Teks 3 — Tempe: Warisan Kuliner yang Pantas Menjadi Kebanggaan Bangsa</h5>
+                    <p class="mb-1.5"><strong>(1)</strong> Tempe adalah makanan khas Indonesia yang dibuat dengan memfermentasi kedelai menggunakan ragi tempe. Sejak dahulu, tempe hadir di meja makan keluarga Indonesia. Saya berpendapat bahwa tempe pantas dijadikan identitas pangan nasional karena gizinya baik dan pengolahannya mudah dilakukan masyarakat.</p>
+                    <p class="mb-1.5"><strong>(2)</strong> Dari sisi gizi, tempe mengandung protein nabati yang dibutuhkan tubuh. Proses fermentasi juga membuat kedelai lebih mudah dicerna daripada kedelai yang belum diolah.</p>
+                    <p class="mb-1.5"><strong>(3)</strong> Dari sisi pengolahan, tempe dapat dibuat oleh pelaku usaha rumahan dengan peralatan sederhana. Di sentra produksi seperti Sanan, Kota Malang, banyak keluarga menggantungkan penghasilan dari usaha tempe dan keripik tempe.</p>
+                    <p><strong>(4)</strong> Namun, usaha tempe menghadapi tantangan karena sebagian besar kedelai bahan bakunya masih diimpor sehingga harganya mudah berubah. Oleh karena itu, saya berpendapat bahwa penanaman kedelai di dalam negeri perlu didorong.</p>
+                </div>
+            `,
+            teks4: `
+                <div class="bg-amber-50/70 border-l-4 border-amber-500 p-4 rounded-r-xl my-3 text-xs md:text-sm text-slate-700 leading-relaxed">
+                    <h5 class="font-bold text-amber-900 mb-1">Teks 4 — Ubi Jalar</h5>
+                    <p><strong>(1)</strong> Ubi jalar mudah tumbuh di berbagai jenis tanah, termasuk tanah yang kurang subur. <strong>(2)</strong> Karena itu, petani dapat menanamnya tanpa biaya pupuk yang besar. <strong>(3)</strong> Biaya produksi yang rendah membuat harga ubi jalar terjangkau. <strong>(4)</strong> Oleh karena itu, ubi jalar tidak dapat diolah menjadi produk bernilai jual tinggi. <strong>(5)</strong> Padahal, ubi jalar ungu telah diolah menjadi tepung, kue, dan es krim yang diminati pasar.</p>
+                </div>
+            `,
+            paragrafPisang: `
+                <div class="bg-amber-50/70 border-l-4 border-amber-500 p-4 rounded-r-xl my-3 text-xs md:text-sm text-slate-700 leading-relaxed">
+                    <h5 class="font-bold text-amber-900 mb-1">Paragraf</h5>
+                    <p>Pisang kepok banyak ditanam di Lampung. Oleh karena itu, sebagian besar hasil panennya dijual dalam keadaan mentah sehingga nilai tambahnya kecil. Selain itu, pelaku usaha mulai mengolahnya menjadi keripik dan tepung.</p>
+                </div>
+            `,
+            poster1: `
+                <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 my-3 text-center">
+                    <span class="text-xs font-semibold text-slate-500 mb-2 block">Stimulus Poster 1</span>
+                    <img src="poster1.jpg" alt="Poster 1 - Sarapan Jagung" class="max-w-xs md:max-w-sm mx-auto rounded-lg shadow-sm border border-slate-300 onerror-fallback" onerror="this.onerror=null; this.src='https://placehold.co/400x550/047857/ffffff?text=Poster+1:+Sarapan+Jagung';">
+                    <p class="text-xs text-slate-500 italic mt-2">Keterangan: Poster ditempel di mading dan kantin sekolah untuk dibaca oleh para siswa.</p>
+                </div>
+            `,
+            poster2: `
+                <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 my-3 text-center">
+                    <span class="text-xs font-semibold text-slate-500 mb-2 block">Stimulus Poster 2</span>
+                    <img src="poster2.jpg" alt="Poster 2 - Festival Pisang Nusantara" class="max-w-xs md:max-w-sm mx-auto rounded-lg shadow-sm border border-slate-300 onerror-fallback" onerror="this.onerror=null; this.src='https://placehold.co/400x550/eab308/1e293b?text=Poster+2:+Festival+Pisang';">
+                    <p class="text-xs text-slate-500 italic mt-2">Keterangan: Poster ditujukan bagi masyarakat umum dan dibagikan melalui media sosial.</p>
+                </div>
+            `,
+            poster3: `
+                <div class="bg-slate-50 border border-slate-200 rounded-xl p-3 my-3 text-center">
+                    <span class="text-xs font-semibold text-slate-500 mb-2 block">Stimulus Poster 3</span>
+                    <img src="poster3.jpg" alt="Poster 3 - Ubi Ungu Camilan Sehat" class="max-w-xs md:max-w-sm mx-auto rounded-lg shadow-sm border border-slate-300 onerror-fallback" onerror="this.onerror=null; this.src='https://placehold.co/400x550/581c87/ffffff?text=Poster+3:+Ubi+Ungu';">
+                    <p class="text-xs text-slate-500 italic mt-2">Keterangan: Poster ditempel di papan pengumuman pasar dan dibaca oleh pengunjung dari jarak sekitar 2 meter.</p>
+                </div>
+            `
+        };
+
+        // --- QUESTION BANK ---
+        const questions = [
+            {
+                id: 1,
+                type: 'PG',
+                points: 4,
+                stimulus: 'teks1',
+                question: 'Gagasan utama Teks 1 yang didukung oleh uraian pada paragraf (2) dan (3) adalah ....',
+                options: [
+                    'Sagu hanya cocok dikonsumsi oleh masyarakat Maluku dan Papua.',
+                    'Sagu layak kembali menjadi pangan pokok karena keunggulan budi daya dan keragaman olahannya.',
+                    'Padi sebaiknya tidak lagi ditanam karena tidak cocok di lahan rawa dan gambut.',
+                    'Papeda, sagu lempeng, dan kue bagea merupakan makanan yang paling digemari generasi muda.'
+                ],
+                key: 1,
+                explanation: 'Paragraf (2) menjelaskan keunggulan budi daya sagu (tumbuh di lahan rawa/gambut), sedangkan paragraf (3) menguraikan keragaman olahan sagu. Kedua paragraf tersebut mendukung gagasan bahwa sagu layak kembali menjadi pangan pokok.'
+            },
+            {
+                id: 2,
+                type: 'PG',
+                points: 4,
+                stimulus: null,
+                question: 'Fungsi paragraf (1) dalam struktur Teks 1 adalah ....',
+                options: [
+                    'memberikan bukti ilmiah tentang kandungan gizi sagu',
+                    'menguraikan berbagai cara pengolahan sagu',
+                    'menyimpulkan bahwa pemerintah wajib mengganti nasi dengan sagu',
+                    'memperkenalkan isu ketergantungan pada satu pangan pokok sekaligus menyatakan posisi penulis tentang sagu'
+                ],
+                key: 3,
+                explanation: 'Paragraf (1) berfungsi sebagai bagian pengantar/tesis yang memperkenalkan isu ketergantungan pada nasi serta menyatakan posisi/pendapat penulis bahwa sagu harus mendapat tempat penting.'
+            },
+            {
+                id: 3,
+                type: 'PGK',
+                points: 7,
+                stimulus: null,
+                question: 'Perhatikan kalimat-kalimat yang dikutip dari Teks 1! Pilihlah tiga kalimat yang termasuk bagian tubuh argumen berdasarkan fungsi dan letaknya! (Pilih 3 jawaban yang benar.)',
+                options: [
+                    'Pohon sagu dapat tumbuh di lahan rawa dan gambut yang tidak cocok untuk padi.',
+                    'Pemerintah dan masyarakat perlu bersama-sama mengenalkan kembali sagu sebagai pangan pokok alternatif.',
+                    'Sagu juga dapat diolah menjadi beragam makanan, seperti papeda, sagu lempeng, dan kue bagea.',
+                    'Langkah ini akan memperkuat ketahanan pangan sekaligus melestarikan kuliner daerah.',
+                    'Dengan demikian, pemanfaatan sagu tidak bersaing dengan lahan sawah.'
+                ],
+                key: [0, 2, 4],
+                explanation: 'Kalimat A, C, dan E berada di paragraf (2) dan (3) yang berfungsi menyajikan bukti, alasan, dan fakta penjelas (tubuh argumen). Kalimat B dan D berada pada paragraf (4) yang merupakan bagian penutup/penegasan kembali.'
+            },
+            {
+                id: 4,
+                type: 'PG',
+                points: 4,
+                stimulus: 'rumpang',
+                question: 'Rangkaian konjungsi antarkalimat yang tepat untuk melengkapi bagian (1), (2), dan (3) secara berurutan adalah ....',
+                options: [
+                    'Oleh karena itu – Namun – Selain itu',
+                    'Namun – Oleh karena itu – Selain itu',
+                    'Selain itu – Namun – Oleh karena itu',
+                    'Oleh karena itu – Selain itu – Namun'
+                ],
+                key: 0,
+                explanation: '(1) Menunjukkan akibat dari sifat tanaman ("Oleh karena itu"), (2) Menunjukkan pertentangan dengan potensi sebelumnya ("Namun"), dan (3) Menunjukkan kesimpulan/solusi dari permasalahan ("Selain itu" / implikasi penambahan argumen).'
+            },
+            {
+                id: 5,
+                type: 'PGK',
+                points: 7,
+                stimulus: 'teks2',
+                question: 'Pilihlah tiga pernyataan yang benar tentang kata kerja mental dan ungkapan argumentatif beserta fungsinya dalam memperkuat pendapat penulis pada Teks 2! (Pilih 3 jawaban yang benar.)',
+                options: [
+                    'Kata berpendapat pada paragraf (1) merupakan kata kerja mental yang menegaskan bahwa isi kalimat berikutnya adalah sudut pandang penulis.',
+                    'Ungkapan Hal ini membuktikan pada paragraf (2) berfungsi menghubungkan data dengan pendapat sehingga pendapat penulis menjadi lebih kuat.',
+                    'Kata menanamnya pada paragraf (2) merupakan kata kerja mental karena menunjukkan aktivitas berpikir penulis.',
+                    'Ungkapan Saya yakin pada paragraf (3) menunjukkan keyakinan penulis sehingga memperkuat pendapat yang disampaikan.',
+                    'Ungkapan Dengan demikian pada paragraf (4) berfungsi memerinci contoh olahan singkong.'
+                ],
+                key: [0, 1, 3],
+                explanation: 'Opsi A, B, dan D tepat. Kata "menanamnya" adalah kata kerja material (tindakan fisik), bukan mental. Ungkapan "Dengan demikian" berfungsi menyatakan penutup/simpulan, bukan memerinci contoh.'
+            },
+            {
+                id: 6,
+                type: 'PGK',
+                points: 7,
+                stimulus: null,
+                question: 'Pilihlah tiga kalimat fakta pada Teks 2 berdasarkan informasi yang dapat diverifikasi dan tidak memuat penanda penilaian atau pendapat! (Pilih 3 jawaban yang benar.)',
+                options: [
+                    'Singkong justru memiliki nilai gizi dan nilai ekonomi yang layak dibanggakan.',
+                    'Singkong mengandung karbohidrat yang menjadi sumber energi.',
+                    'Singkong sepatutnya dipandang sebagai pangan bernilai, bukan makanan murah.',
+                    'Singkong dapat tumbuh di lahan kering.',
+                    'Singkong yang diolah menjadi tepung mocaf, keripik, atau getuk memiliki harga jual lebih tinggi daripada singkong mentah.'
+                ],
+                key: [1, 3, 4],
+                explanation: 'Kalimat B, D, dan E memuat kenyataan objektif yang dapat diuji/diverifikasi kebenarannya tanpa frasa opini atau penilaian subjektif seperti "layak dibanggakan" atau "sepatutnya dipandang".'
+            },
+            {
+                id: 7,
+                type: 'PG',
+                points: 4,
+                stimulus: null,
+                question: 'Perhatikan empat pernyataan siswa tentang olahan singkong berikut! Pernyataan yang didukung data atau informasi yang dapat diperiksa kebenarannya adalah ....',
+                options: [
+                    'Keripik singkong adalah camilan paling enak karena semua orang menyukainya.',
+                    'Olahan singkong pasti disukai remaja karena rasanya gurih dan harganya murah.',
+                    'Dari angket yang diisi 120 siswa kelas XI, sebanyak 78 siswa mengaku membeli olahan singkong di kantin minimal sekali dalam seminggu.',
+                    'Menurut saya, sebagian besar siswa di sekolah kita sangat gemar makan olahan singkong.'
+                ],
+                key: 2,
+                explanation: 'Opsi C memuat data kuantitatif yang jelas dan terukur (angket 120 siswa, 78 siswa) sehingga dapat diverifikasi kebenarannya secara objektif.'
+            },
+            {
+                id: 8,
+                type: 'PG',
+                points: 4,
+                stimulus: 'teks3',
+                question: 'Teks 3 belum memiliki paragraf penutup. Simpulan yang paling konsisten dengan tesis dan argumen dalam teks tersebut adalah ....',
+                options: [
+                    'Tempe bergizi dan mudah diolah sehingga pantas menjadi identitas pangan nasional; agar usahanya berkelanjutan, ketersediaan kedelai dalam negeri perlu diperkuat.',
+                    'Tempe sulit dibuat sehingga sebaiknya hanya diproduksi oleh pabrik besar.',
+                    'Kedelai impor lebih baik daripada kedelai lokal sehingga tempe tidak perlu dipromosikan.',
+                    'Tempe hanya cocok dikonsumsi di Malang karena sentra produksinya berada di sana.'
+                ],
+                key: 0,
+                explanation: 'Simpulan pada opsi A merangkum tesis (tempe sebagai identitas pangan nasional) serta dua argumen utama (gizi dan kemudahan olah) beserta tantangan bahan baku kedelai yang diuraikan pada teks.'
+            },
+            {
+                id: 9,
+                type: 'PG',
+                points: 4,
+                stimulus: null,
+                question: 'Penulis ingin menambahkan satu bukti pada paragraf (2) Teks 3 untuk mendukung klaim bahwa gizi tempe baik. Bukti yang paling relevan dan memadai untuk klaim tersebut adalah ....',
+                options: [
+                    'Tempe sudah dikenal masyarakat Indonesia sejak lama.',
+                    'Tempe dijual dengan harga terjangkau di pasar tradisional.',
+                    'Hasil analisis laboratorium sebuah lembaga pangan menunjukkan kandungan protein, serat, dan mineral pada tempe serta daya cernanya yang lebih baik daripada kedelai mentah.',
+                    'Banyak orang menyukai rasa tempe goreng yang gurih.'
+                ],
+                key: 2,
+                explanation: 'Bukti berupa data analisis laboratorium lembaga pangan merupakan data ilmiah yang relevan dan valid untuk mendukung klaim mengenai keunggulan gizi tempe.'
+            },
+            {
+                id: 10,
+                type: 'PGK',
+                points: 7,
+                stimulus: null,
+                question: 'Pilihlah tiga pernyataan yang tepat mengenai hubungan antara narasi, fakta, dan argumen serta kontribusinya terhadap kejelasan gagasan utama Teks 3! (Pilih 3 jawaban yang benar.)',
+                options: [
+                    'Paragraf (4) tentang kedelai impor tidak berkaitan dengan gagasan utama sehingga sebaiknya dihapus.',
+                    'Fakta bahwa tempe mengandung protein nabati memperkuat alasan bahwa gizi tempe baik, yang menjadi bagian tesis penulis.',
+                    'Contoh keluarga di Sanan yang bergantung pada usaha tempe merupakan fakta yang memperkuat argumen tentang kemudahan pengolahan tempe.',
+                    'Fakta bahwa fermentasi membuat kedelai mudah dicerna merupakan opini penulis sehingga melemahkan argumen.',
+                    'Informasi bahwa tempe sejak dahulu hadir di meja makan keluarga Indonesia berfungsi sebagai latar yang menguatkan gagasan bahwa tempe pantas menjadi identitas pangan.'
+                ],
+                key: [1, 2, 4],
+                explanation: 'Pernyataan B, C, dan E menganalisis fungsi fakta dan konteks dengan tepat terhadap pembentukan gagasan utama teks.'
+            },
+            {
+                id: 11,
+                type: 'PG',
+                points: 4,
+                stimulus: null,
+                question: 'Perhatikan klaim berikut! “Pisang layak dijadikan bahan olahan pangan unggulan daerah.” Argumen yang paling kuat untuk mendukung klaim tersebut berdasarkan relevansi alasan, kecukupan bukti, dan keterkaitannya dengan klaim adalah ....',
+                options: [
+                    'Pisang dijual di banyak pasar sehingga pasti menjadi unggulan daerah.',
+                    'Dalam survei terhadap lima tetangga, semuanya menyukai pisang goreng sehingga pisang layak menjadi unggulan daerah.',
+                    'Pisang kaya kalium sehingga baik bagi kesehatan tubuh.',
+                    'Pisang dapat ditanam di banyak wilayah sepanjang tahun sehingga bahan bakunya mudah diperoleh, dan dapat diolah menjadi keripik, sale, dan tepung awet yang bernilai jual tinggi.'
+                ],
+                key: 3,
+                explanation: 'Opsi D menyajikan alasan yang komplet dan logis: kelangsungan pasokan bahan baku (ditanam sepanjang tahun) dan kepraktisan potensi ekonomi (dapat diolah menjadi berbagai produk awet bernilai tinggi).'
+            },
+            {
+                id: 12,
+                type: 'GRID',
+                points: 5,
+                stimulus: 'teks4',
+                question: 'Tentukan apakah pernyataan tentang hubungan sebab-akibat dan konsistensi logika pada Teks 4 berikut Benar atau Salah!',
+                statements: [
+                    'Kalimat (2) menyatakan akibat dari keadaan yang dijelaskan pada kalimat (1).',
+                    'Kalimat (3) merupakan sebab dari keadaan yang dijelaskan pada kalimat (2).',
+                    'Kalimat (4) konsisten dengan kalimat (1) sampai (3) karena harga yang terjangkau pasti membuat ubi jalar tidak dapat diolah menjadi produk bernilai tinggi.',
+                    'Kalimat (5) bertentangan dengan kalimat (4) sehingga logika argumen pada kalimat (4) tidak konsisten dengan fakta dalam teks.'
+                ],
+                key: ['Benar', 'Salah', 'Salah', 'Benar'],
+                explanation: '1: Benar (tumbuh mudah -> akibatnya pupuk murah). 2: Salah (kalimat 3 adalah akibat dari kalimat 2). 3: Salah (kalimat 4 tidak logis karena harga bahan terjangkau justru berpotensi diolah bernilai tinggi). 4: Benar (kalimat 5 membuktikan kalimat 4 salah).'
+            },
+            {
+                id: 13,
+                type: 'PG',
+                points: 4,
+                stimulus: 'paragrafPisang',
+                question: 'Perbaikan konjungsi antarkalimat agar hubungan logis dalam paragraf tersebut menjadi tepat adalah ....',
+                options: [
+                    'Kalimat kedua: Selain itu; kalimat ketiga: Namun',
+                    'Kalimat kedua: Namun; kalimat ketiga: Oleh karena itu',
+                    'Kalimat kedua: Dengan demikian; kalimat ketiga: Selain itu',
+                    'Kalimat kedua: Oleh karena itu; kalimat ketiga: Selain itu (tanpa perubahan)'
+                ],
+                key: 1,
+                explanation: 'Kalimat kedua bertentangan dengan potensi ideal ("Namun, sebagian besar panen dijual mentah..."), sedangkan kalimat ketiga menyatakan simpulan/upaya perbaikan ("Oleh karena itu, pelaku usaha mulai mengolahnya...").'
+            },
+            {
+                id: 14,
+                type: 'PG',
+                points: 4,
+                stimulus: 'poster1',
+                question: 'Tujuan komunikasi Poster 1 berdasarkan isi pesan, sasaran pembaca, dan konteks penggunaannya adalah ....',
+                options: [
+                    'menjual bubur jagung dengan harga paling murah di kota',
+                    'menjelaskan cara menanam jagung di lahan sekolah',
+                    'mengajak siswa sarapan olahan jagung di kantin sekolah',
+                    'menyampaikan hasil penelitian tentang kandungan gizi jagung'
+                ],
+                key: 2,
+                explanation: 'Poster berisi ajakan "Sarapan Jagung, Semangat Belajar Menggunung" dengan konteks tempat kantin sekolah dan sasaran siswa.'
+            },
+            {
+                id: 15,
+                type: 'PGK',
+                points: 7,
+                stimulus: null,
+                question: 'Berdasarkan Poster 1, pilihlah dua pernyataan yang benar tentang fungsi unsur visual dan prinsip desainnya dalam menarik perhatian serta memperjelas informasi! (Pilih 2 jawaban yang benar.)',
+                options: [
+                    'Gambar siswa berseragam hanya berfungsi sebagai hiasan dan tidak berkaitan dengan sasaran poster.',
+                    'Huruf besar berwarna kuning pada latar hijau tua membuat slogan kontras sehingga cepat menarik perhatian pembaca.',
+                    'Latar hijau tua membuat seluruh tulisan sulit dibaca sehingga tidak ada unsur yang berfungsi memperjelas informasi.',
+                    'Gambar semangkuk bubur jagung di bagian tengah memperjelas produk yang dipromosikan.',
+                    'Informasi kegiatan memakai huruf sebesar slogan sehingga tidak ada perbedaan tingkat penting informasi.'
+                ],
+                key: [1, 3],
+                explanation: 'Opsi B benar (kontras warna menarik visual) dan opsi D benar (gambar ilustrasi utama memperjelas objek promosi).'
+            },
+            {
+                id: 16,
+                type: 'PG',
+                points: 4,
+                stimulus: null,
+                question: 'Pihak kantin ingin menambahkan satu kalimat persuasif di bagian bawah Poster 1. Kalimat yang paling sesuai dengan tujuan komunikasi dan sasaran pembaca poster adalah ....',
+                options: [
+                    'Jangan lewatkan semangkuk bubur jagung hangat di kantin sebelum bel masuk berbunyi, ya!',
+                    'Bapak dan Ibu, belilah jagung di pasar terdekat untuk persediaan makanan di rumah.',
+                    'Jagung mengandung karbohidrat, serat, dan sedikit protein.',
+                    'Bubur jagung dibuat dengan cara merebus jagung pipil bersama santan.'
+                ],
+                key: 0,
+                explanation: 'Kalimat A bernada persuasif, ramah, serta relevan dengan target siswa sekolah sebelum jam pelajaran dimulai.'
+            },
+            {
+                id: 17,
+                type: 'GRID',
+                points: 5,
+                stimulus: 'poster2',
+                question: 'Tentukan apakah pernyataan tentang kelengkapan informasi Poster 2 berikut Benar atau Salah!',
+                statements: [
+                    'Poster telah memuat nama kegiatan dan waktu pelaksanaannya.',
+                    'Poster telah menyebutkan tempat pelaksanaan kegiatan.',
+                    'Masyarakat umum dapat memahami jenis olahan yang ditawarkan karena disebutkan langsung dalam teks pendukung.',
+                    'Pembaca yang ingin menjadi peserta penjual dapat mengetahui cara mendaftar dari informasi pada poster.'
+                ],
+                key: ['Benar', 'Salah', 'Benar', 'Salah'],
+                explanation: '1: Benar (Nama: Festival Pisang Nusantara, Waktu: Sabtu, 14 Nov 2026). 2: Salah (Tempat lokasi spesifik tidak tertulis). 3: Benar (Disebutkan: keripik, sale, molen). 4: Salah (Tidak ada informasi pendaftaran).'
+            },
+            {
+                id: 18,
+                type: 'PG',
+                points: 4,
+                stimulus: null,
+                question: 'Hubungan antara slogan, gambar, informasi, dan tujuan komunikasi pada Poster 2 yang paling tepat adalah ....',
+                options: [
+                    'Semua unsur sudah selaras sempurna karena pisang menjadi bahan dasar semua olahan.',
+                    'Slogan dan teks pendukung sejalan dengan tujuan mempromosikan olahan UMKM, tetapi gambar tandan pisang mentah kurang mewakili produk olahan yang ditawarkan.',
+                    'Slogan tidak sesuai karena kata “lokal” bertentangan dengan tujuan mempromosikan UMKM.',
+                    'Informasi waktu tidak sesuai karena festival tidak memerlukan keterangan hari dan jam.'
+                ],
+                key: 1,
+                explanation: 'Gambar yang ditampilkan adalah pisang mentah di tandan, padahal teks mempromosikan produk olahan (keripik, sale, molen) sehingga visual kurang presisi mewakili pesan.'
+            },
+            {
+                id: 19,
+                type: 'PGK',
+                points: 7,
+                stimulus: 'poster3',
+                question: 'Pilihlah tiga penilaian yang tepat mengenai kelebihan dan kekurangan Poster 3 berdasarkan keterbacaan, hierarki informasi, daya tarik visual, dan kejelasan pesan! (Pilih 3 jawaban yang benar.)',
+                options: [
+                    'Ilustrasi es krim berukuran besar di tengah poster menjadi daya tarik visual sekaligus memperjelas produk yang dipromosikan.',
+                    'Informasi harga dan cara pemesanan sudah menonjol sehingga mudah ditemukan pembaca.',
+                    'Hierarki informasi sudah jelas karena slogan merupakan teks yang paling besar dan paling kontras pada poster.',
+                    'Slogan berwarna ungu muda pada latar ungu tua dengan huruf kecil membuat keterbacaannya rendah.',
+                    'Dua paragraf penjelasan bertulisan kecil membuat pesan poster kurang ringkas dan sulit dibaca sekilas.'
+                ],
+                key: [0, 3, 4],
+                explanation: 'Penilaian A (kelebihan visual utama), D (kekurangan kontras warna slogan), dan E (kekurangan teks terlalu padat untuk dibaca sekilas dari jarak 2 meter) adalah tepat.'
+            },
+            {
+                id: 20,
+                type: 'PG',
+                points: 4,
+                stimulus: null,
+                question: 'Agar Poster 3 lebih efektif menyampaikan pesan kepada pengunjung pasar, perbaikan yang paling tepat adalah ....',
+                options: [
+                    'Mengganti ilustrasi es krim dengan gambar kebun ubi yang lebih luas.',
+                    'Menambah paragraf penjelasan tentang manfaat antosianin agar informasi lebih lengkap.',
+                    'Mengecilkan ilustrasi es krim agar ruang tulisan menjadi lebih luas.',
+                    'Mengganti warna slogan menjadi putih atau kuning terang dengan huruf lebih besar dan tebal, serta menempatkan harga dan cara pemesanan dalam kotak yang jelas.'
+                ],
+                key: 3,
+                explanation: 'Memperbaiki warna & ukuran slogan meningkatkan tingkat keterbacaan (legibility), serta meletakkan info penting (harga/kontak) dalam kotak membuat hierarki visual lebih efektif.'
+            }
+        ];
+
+        // --- GLOBAL STATE ---
+        let studentData = {
+            nama: '',
+            kelas: ''
+        };
+        let userAnswers = {};
+
+        // --- RENDER QUESTIONS ON LOAD ---
+        function renderQuestions() {
+            const container = document.getElementById('questions-container');
+            container.innerHTML = '';
+
+            questions.forEach((q, index) => {
+                const qCard = document.createElement('div');
+                qCard.className = 'bg-white rounded-2xl shadow-sm border border-slate-200 p-5 md:p-6 transition hover:shadow-md';
+                qCard.id = `q-card-${q.id}`;
+
+                let html = `
+                    <div class="flex items-center justify-between border-b border-slate-100 pb-3 mb-4">
+                        <span class="inline-flex items-center px-3 py-1 rounded-full text-xs font-bold bg-emerald-100 text-emerald-800">
+                            Soal Nomor ${q.id}
+                        </span>
+                        <span class="text-xs font-semibold text-slate-400">
+                            ${q.type === 'PG' ? 'Pilihan Ganda (4 Poin)' : q.type === 'PGK' ? 'PG Kompleks (7 Poin)' : 'Benar / Salah (5 Poin)'}
+                        </span>
+                    </div>
+                `;
+
+                if (q.stimulus && stimuliMap[q.stimulus]) {
+                    html += stimuliMap[q.stimulus];
+                }
+
+                html += `<p class="text-sm md:text-base font-semibold text-slate-800 mb-4 leading-relaxed">${q.question}</p>`;
+
+                // Options Render
+                if (q.type === 'PG') {
+                    html += `<div class="space-y-2.5">`;
+                    q.options.forEach((opt, oIdx) => {
+                        const letter = String.fromCharCode(65 + oIdx);
+                        html += `
+                            <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition select-none group">
+                                <input type="radio" name="question_${q.id}" value="${oIdx}" onchange="registerAnswer(${q.id})" class="mt-0.5 w-4 h-4 text-emerald-600 focus:ring-emerald-500 border-slate-300">
+                                <span class="ml-3 text-xs md:text-sm text-slate-700 group-hover:text-slate-900 leading-normal">
+                                    <strong class="text-slate-900 mr-1">${letter}.</strong> ${escapeHtml(opt)}
+                                </span>
+                            </label>
+                        `;
+                    });
+                    html += `</div>`;
+                } else if (q.type === 'PGK') {
+                    html += `<div class="space-y-2.5">`;
+                    q.options.forEach((opt, oIdx) => {
+                        const letter = String.fromCharCode(65 + oIdx);
+                        html += `
+                            <label class="flex items-start p-3 rounded-xl border border-slate-200 hover:bg-slate-50 cursor-pointer transition select-none group">
+                                <input type="checkbox" name="question_${q.id}" value="${oIdx}" onchange="registerAnswer(${q.id})" class="mt-0.5 w-4 h-4 text-emerald-600 focus:ring-emerald-500 border-slate-300 rounded">
+                                <span class="ml-3 text-xs md:text-sm text-slate-700 group-hover:text-slate-900 leading-normal">
+                                    <strong class="text-slate-900 mr-1">${letter}.</strong> ${escapeHtml(opt)}
+                                </span>
+                            </label>
+                        `;
+                    });
+                    html += `</div>`;
+                } else if (q.type === 'GRID') {
+                    html += `
+                        <div class="overflow-x-auto my-2 border border-slate-200 rounded-xl">
+                            <table class="w-full text-left border-collapse text-xs md:text-sm">
+                                <thead>
+                                    <tr class="bg-slate-100 text-slate-700">
+                                        <th class="p-3 border-b border-slate-200">No</th>
+                                        <th class="p-3 border-b border-slate-200">Pernyataan</th>
+                                        <th class="p-3 border-b border-slate-200 text-center w-20">Benar</th>
+                                        <th class="p-3 border-b border-slate-200 text-center w-20">Salah</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                    `;
+                    q.statements.forEach((stmt, sIdx) => {
+                        html += `
+                            <tr class="${sIdx % 2 === 0 ? 'bg-white' : 'bg-slate-50/50'}">
+                                <td class="p-3 border-b border-slate-200 font-bold text-slate-500">${sIdx + 1}</td>
+                                <td class="p-3 border-b border-slate-200 text-slate-700">${escapeHtml(stmt)}</td>
+                                <td class="p-3 border-b border-slate-200 text-center">
+                                    <input type="radio" name="grid_${q.id}_${sIdx}" value="Benar" onchange="registerAnswer(${q.id})" class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                                </td>
+                                <td class="p-3 border-b border-slate-200 text-center">
+                                    <input type="radio" name="grid_${q.id}_${sIdx}" value="Salah" onchange="registerAnswer(${q.id})" class="w-4 h-4 text-emerald-600 focus:ring-emerald-500">
+                                </td>
+                            </tr>
+                        `;
+                    });
+                    html += `
+                                </tbody>
+                            </table>
+                        </div>
+                    `;
+                }
+
+                qCard.innerHTML = html;
+                container.appendChild(qCard);
+            });
+        }
+
+        // --- APP CONTROLS ---
+        function startAssessment(e) {
+            e.preventDefault();
+            const nama = document.getElementById('input-nama').value.trim();
+            const kelas = document.getElementById('input-kelas').value.trim();
+
+            if (!nama || !kelas) {
+                alert('Silakan isi Nama dan Kelas terlebih dahulu.');
+                return;
+            }
+
+            studentData.nama = nama;
+            studentData.kelas = kelas;
+
+            document.getElementById('display-header-nama').textContent = nama;
+            document.getElementById('display-header-kelas').textContent = kelas;
+            document.getElementById('header-student-info').classList.remove('hidden');
+
+            document.getElementById('identity-section').classList.add('hidden');
+            document.getElementById('questions-section').classList.remove('hidden');
+            document.getElementById('progress-container').classList.remove('hidden');
+
+            renderQuestions();
+            updateProgress();
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function registerAnswer(questionId) {
+            const q = questions.find(item => item.id === questionId);
+            if (!q) return;
+
+            if (q.type === 'PG') {
+                const selected = document.querySelector(`input[name="question_${questionId}"]:checked`);
+                userAnswers[questionId] = selected ? parseInt(selected.value) : null;
+            } else if (q.type === 'PGK') {
+                const checkboxes = document.querySelectorAll(`input[name="question_${questionId}"]:checked`);
+                userAnswers[questionId] = Array.from(checkboxes).map(cb => parseInt(cb.value));
+            } else if (q.type === 'GRID') {
+                const gridAns = [];
+                q.statements.forEach((_, sIdx) => {
+                    const sel = document.querySelector(`input[name="grid_${questionId}_${sIdx}"]:checked`);
+                    gridAns.push(sel ? sel.value : null);
+                });
+                userAnswers[questionId] = gridAns;
+            }
+
+            updateProgress();
+        }
+
+        function updateProgress() {
+            let answeredCount = 0;
+
+            questions.forEach(q => {
+                const ans = userAnswers[q.id];
+                if (q.type === 'PG' && ans !== undefined && ans !== null) {
+                    answeredCount++;
+                } else if (q.type === 'PGK' && Array.isArray(ans) && ans.length > 0) {
+                    answeredCount++;
+                } else if (q.type === 'GRID' && Array.isArray(ans) && ans.every(a => a !== null)) {
+                    answeredCount++;
+                }
+            });
+
+            const percent = Math.round((answeredCount / questions.length) * 100);
+            document.getElementById('progress-text').textContent = `${answeredCount} dari ${questions.length} Soal Terjawab (${percent}%)`;
+            document.getElementById('progress-bar').style.width = `${percent}%`;
+        }
+
+        function submitAssessment() {
+            let unanswered = [];
+            questions.forEach(q => {
+                const ans = userAnswers[q.id];
+                if (q.type === 'PG' && (ans === undefined || ans === null)) {
+                    unanswered.push(q.id);
+                } else if (q.type === 'PGK' && (!Array.isArray(ans) || ans.length === 0)) {
+                    unanswered.push(q.id);
+                } else if (q.type === 'GRID' && (!Array.isArray(ans) || ans.some(a => a === null))) {
+                    unanswered.push(q.id);
+                }
+            });
+
+            if (unanswered.length > 0) {
+                const confirmSubmit = confirm(`Masih ada ${unanswered.length} nomor soal yang belum dijawab lengkap (Nomor: ${unanswered.join(', ')}).\n\nYakin ingin mengumpulkan sekarang?`);
+                if (!confirmSubmit) {
+                    const firstUnansweredCard = document.getElementById(`q-card-${unanswered[0]}`);
+                    if (firstUnansweredCard) {
+                        firstUnansweredCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    }
+                    return;
+                }
+            } else {
+                if (!confirm('Apakah Anda sudah yakin ingin mengumpulkan seluruh jawaban?')) {
+                    return;
+                }
+            }
+
+            calculateAndShowResult();
+        }
+
+        function calculateAndShowResult() {
+            let totalScore = 0;
+
+            const evalContainer = document.getElementById('evaluation-container');
+            evalContainer.innerHTML = '';
+
+            questions.forEach((q) => {
+                let earnedScore = 0;
+                let isCorrect = false;
+                const userAns = userAnswers[q.id];
+
+                if (q.type === 'PG') {
+                    if (userAns === q.key) {
+                        earnedScore = q.points;
+                        isCorrect = true;
+                    }
+                } else if (q.type === 'PGK') {
+                    const userArr = Array.isArray(userAns) ? userAns.sort() : [];
+                    const keyArr = q.key.sort();
+                    
+                    const isExactlySame = userArr.length === keyArr.length && userArr.every((val, index) => val === keyArr[index]);
+                    
+                    if (isExactlySame) {
+                        earnedScore = q.points; // 7
+                        isCorrect = true;
+                    } else {
+                        const hasWrongSelection = userArr.some(val => !keyArr.includes(val));
+                        if (!hasWrongSelection && userArr.length > 0) {
+                            earnedScore = 4; // Partial point
+                        } else {
+                            earnedScore = 0;
+                        }
+                    }
+                } else if (q.type === 'GRID') {
+                    const userArr = Array.isArray(userAns) ? userAns : [];
+                    const isAllCorrect = userArr.length === q.key.length && userArr.every((val, idx) => val === q.key[idx]);
+                    if (isAllCorrect) {
+                        earnedScore = q.points; // 5
+                        isCorrect = true;
+                    } else {
+                        earnedScore = 0;
+                    }
+                }
+
+                totalScore += earnedScore;
+
+                // Render Item Evaluation
+                const evalItem = document.createElement('div');
+                evalItem.className = `p-4 md:p-5 rounded-xl border ${isCorrect ? 'bg-emerald-50/50 border-emerald-200' : 'bg-red-50/50 border-red-200'} space-y-3`;
+
+                let userAnsDisplay = '';
+                let keyAnsDisplay = '';
+
+                if (q.type === 'PG') {
+                    userAnsDisplay = userAns !== undefined && userAns !== null ? `${String.fromCharCode(65 + userAns)}. ${q.options[userAns]}` : '<em class="text-slate-400">Tidak dijawab</em>';
+                    keyAnsDisplay = `${String.fromCharCode(65 + q.key)}. ${q.options[q.key]}`;
+                } else if (q.type === 'PGK') {
+                    userAnsDisplay = Array.isArray(userAns) && userAnswers[q.id].length > 0 
+                        ? userAnswers[q.id].map(i => `${String.fromCharCode(65 + i)}`).join(', ') 
+                        : '<em class="text-slate-400">Tidak dijawab</em>';
+                    keyAnsDisplay = q.key.map(i => `${String.fromCharCode(65 + i)}`).join(', ');
+                } else if (q.type === 'GRID') {
+                    userAnsDisplay = Array.isArray(userAns) ? userAns.map((a, i) => `[Pernyataan ${i+1}: ${a || '-'}]`).join(' ') : '<em class="text-slate-400">Tidak dijawab</em>';
+                    keyAnsDisplay = q.key.map((k, i) => `[Pernyataan ${i+1}: ${k}]`).join(' ');
+                }
+
+                evalItem.innerHTML = `
+                    <div class="flex justify-between items-start">
+                        <span class="font-bold text-sm ${isCorrect ? 'text-emerald-800' : 'text-red-800'}">
+                            Soal #${q.id} ${isCorrect ? '✓ Sempurna' : earnedScore > 0 ? '⚠ Benar Sebagian' : '✗ Salah'}
+                        </span>
+                        <span class="text-xs font-bold px-2.5 py-1 rounded-md ${isCorrect ? 'bg-emerald-200 text-emerald-800' : earnedScore > 0 ? 'bg-amber-200 text-amber-900' : 'bg-red-200 text-red-800'}">
+                            Poin: ${earnedScore} / ${q.points}
+                        </span>
+                    </div>
+                    <p class="text-xs md:text-sm font-medium text-slate-800">${q.question}</p>
+                    <div class="text-xs space-y-1 bg-white/80 p-3 rounded-lg border border-slate-200/60">
+                        <div><strong class="text-slate-600">Jawaban Anda:</strong> <span class="${isCorrect ? 'text-emerald-700 font-semibold' : 'text-red-700'}">${escapeHtml(userAnsDisplay)}</span></div>
+                        <div><strong class="text-slate-600">Kunci Jawaban:</strong> <span class="text-emerald-800 font-semibold">${escapeHtml(keyAnsDisplay)}</span></div>
+                    </div>
+                    <div class="text-xs text-slate-600 bg-slate-100 p-2.5 rounded-lg border-l-2 border-slate-400">
+                        <strong>Pembahasan:</strong> ${q.explanation}
+                    </div>
+                `;
+                evalContainer.appendChild(evalItem);
+            });
+
+            // Set Header Result
+            document.getElementById('res-nama').textContent = studentData.nama;
+            document.getElementById('res-kelas').textContent = studentData.kelas;
+            document.getElementById('res-waktu').textContent = new Date().toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'short' });
+            document.getElementById('res-score').textContent = totalScore;
+
+            const feedbackEl = document.getElementById('res-feedback');
+            if (totalScore >= 85) {
+                feedbackEl.className = 'max-w-md mx-auto p-3 rounded-lg text-sm font-medium mb-4 bg-emerald-100 text-emerald-800 border border-emerald-300';
+                feedbackEl.textContent = 'Luar Biasa! Pemahaman Anda terhadap materi teks argumentasi dan poster sangat matang.';
+            } else if (totalScore >= 70) {
+                feedbackEl.className = 'max-w-md mx-auto p-3 rounded-lg text-sm font-medium mb-4 bg-teal-100 text-teal-800 border border-teal-300';
+                feedbackEl.textContent = 'Sangat Baik! Anda telah menguasai sebagian besar kompetensi dasar pada Bab 1 ini.';
+            } else {
+                feedbackEl.className = 'max-w-md mx-auto p-3 rounded-lg text-sm font-medium mb-4 bg-amber-100 text-amber-800 border border-amber-300';
+                feedbackEl.textContent = 'Tetap Semangat! Pelajari kembali pembahasan di bawah ini untuk memperdalam pemahaman materi.';
+            }
+
+            // Hide questions, show results
+            document.getElementById('questions-section').classList.add('hidden');
+            document.getElementById('progress-container').classList.add('hidden');
+            document.getElementById('result-section').classList.remove('hidden');
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function escapeHtml(str) {
+            if (typeof str !== 'string') return str;
+            return str
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;")
+                .replace(/'/g, "&#039;");
+        }
+    </script>
+</body>
+</html>
