@@ -216,7 +216,7 @@
             <form onsubmit="handleLoginGuru(event)" class="space-y-4">
                 <div>
                     <label class="block text-xs font-semibold text-slate-600 uppercase mb-1">Password Guru</label>
-                    <input type="password" id="guruPassword" required placeholder="Masukkan Password Anda" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none text-sm transition">
+                    <input type="password" id="guruPassword" required placeholder="Masukkan Password" class="w-full px-4 py-2.5 rounded-xl border border-slate-300 focus:ring-2 focus:ring-indigo-500 focus:outline-none text-sm transition">
                 </div>
                 <button type="submit" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-xl shadow-lg shadow-indigo-200 transition duration-200 flex items-center justify-center">
                     Masuk Dashboard <i class="fa-solid fa-right-to-bracket ms-2"></i>
@@ -443,23 +443,35 @@
         (3) Dari sisi pengolahan, tempe dapat dibuat oleh pelaku usaha rumahan dengan peralatan sederhana. Di sentra produksi seperti Sanan, Kota Malang, banyak keluarga menggantungkan penghasilan dari usaha tempe dan keripik tempe.<br>
         (4) Namun, usaha tempe menghadapi tantangan karena sebagian besar kedelai bahan bakunya masih diimpor sehingga harganya mudah berubah. Oleh karena itu, saya berpendapat bahwa penanaman kedelai di dalam negeri perlu didorong.`;
 
+        // =================================================================
+        // DUA CARA MENGGUNAKAN GAMBAR POSTER:
+        // 1. Simpan file gambar di folder yang sama dengan index.html
+        //    dengan nama: poster1.jpg, poster2.jpg, dan poster3.jpg
+        // 2. Atau ganti string 'poster1.jpg' di bawah dengan path/URL file Anda
+        // =================================================================
+        const URL_POSTER_1 = "poster1.jpg";
+        const URL_POSTER_2 = "poster2.jpg";
+        const URL_POSTER_3 = "poster3.jpg";
+
         // Dynamic Poster Loader Functions
-        function getPosterSrc(num, defaultUrl) {
-            const customImg = localStorage.getItem(`cbt_poster_${num}`);
-            return customImg || defaultUrl;
+        function getPosterSrc(num) {
+            if (num === 1) return URL_POSTER_1;
+            if (num === 2) return URL_POSTER_2;
+            if (num === 3) return URL_POSTER_3;
+            return '';
         }
 
         function getStimulusPoster1() {
-            const src = getPosterSrc(1, 'https://placehold.co/400x300/10b981/ffffff?text=Poster+1+Sarapan+Jagung');
-            return `<div class="text-center bg-slate-100 p-2 rounded-xl mb-2"><img src="${src}" alt="Poster 1" class="max-h-80 mx-auto rounded-lg shadow-sm border"></div>`;
+            const src = getPosterSrc(1);
+            return `<div class="text-center bg-slate-100 p-2 rounded-xl mb-2"><img src="${src}" alt="Poster 1" class="max-h-80 mx-auto rounded-lg shadow-sm border" onerror="this.onerror=null; this.src='https://placehold.co/400x300/10b981/ffffff?text=Poster+1+Sarapan+Jagung';"></div>`;
         }
         function getStimulusPoster2() {
-            const src = getPosterSrc(2, 'https://placehold.co/400x300/f59e0b/ffffff?text=Poster+2+Festival+Pisang');
-            return `<div class="text-center bg-slate-100 p-2 rounded-xl mb-2"><img src="${src}" alt="Poster 2" class="max-h-80 mx-auto rounded-lg shadow-sm border"></div>`;
+            const src = getPosterSrc(2);
+            return `<div class="text-center bg-slate-100 p-2 rounded-xl mb-2"><img src="${src}" alt="Poster 2" class="max-h-80 mx-auto rounded-lg shadow-sm border" onerror="this.onerror=null; this.src='https://placehold.co/400x300/f59e0b/ffffff?text=Poster+2+Festival+Pisang';"></div>`;
         }
         function getStimulusPoster3() {
-            const src = getPosterSrc(3, 'https://placehold.co/400x300/8b5cf6/ffffff?text=Poster+3+Es+Krim+Ubi+Ungu');
-            return `<div class="text-center bg-slate-100 p-2 rounded-xl mb-2"><img src="${src}" alt="Poster 3" class="max-h-80 mx-auto rounded-lg shadow-sm border"></div>`;
+            const src = getPosterSrc(3);
+            return `<div class="text-center bg-slate-100 p-2 rounded-xl mb-2"><img src="${src}" alt="Poster 3" class="max-h-80 mx-auto rounded-lg shadow-sm border" onerror="this.onerror=null; this.src='https://placehold.co/400x300/8b5cf6/ffffff?text=Poster+3+Es+Krim+Ubi+Ungu';"></div>`;
         }
 
         const questionBank = [
@@ -759,7 +771,7 @@
         /* -----------------------------------------------------------------
            STATE & LOCAL STORAGE MANAGEMENT
            ----------------------------------------------------------------- */
-        const ADMIN_PASS = "passwordguru";
+        const ADMIN_PASS = "paswordguruAdin";
         let currentSiswa = null;
         let currentQuestionIndex = 0;
         let studentAnswers = {};
